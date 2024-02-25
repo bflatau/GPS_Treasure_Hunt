@@ -78,29 +78,20 @@ void loop() {
             TREASURE_LAT,
             TREASURE_LNG);
 
-          
-          tft.fillCircle(64, 64, 57, TFT_BLACK); // clear circle
-
-
-          // hx = cos((hdeg-90)*0.0174532925);    
-          // hy = sin((hdeg-90)*0.0174532925);
-
-          // hx = cos((90)*57);    
-          // hy = sin((90)*57);
-
-          // tft.drawLine(64, 64, hx, hy,TFT_RED);
-
-           for(int i = 0; i<360; i+= 90) {
-            sx = cos((i-90)*0.0174532925);
-            sy = sin((i-90)*0.0174532925);
-            x0 = sx*57+64;
-            yy0 = sy*57+64;
-            x1 = sx*50+64;
-            yy1 = sy*50+64;
+        for(int i = 0; i<360; i+= 90) {
+          sx = cos((i-90)*0.0174532925);
+          sy = sin((i-90)*0.0174532925);
+          x0 = sx*57+64;
+          yy0 = sy*57+64;
+          x1 = sx*50+64;
+          yy1 = sy*50+64;
 
           tft.drawLine(x0, yy0, x1, yy1, TFT_BLUE);
-          }
+        }
 
+
+          //DRAW REDLINE
+          tft.drawLine(64, 64, cos((courseTo - 90)*0.0174532925)*57+64, sin((courseTo - 90)*0.0174532925)*57+64 , TFT_RED);
 
           String distanceToDestination = String(distanceTo);
           tft.setTextColor(TFT_GREEN, TFT_BLACK);
