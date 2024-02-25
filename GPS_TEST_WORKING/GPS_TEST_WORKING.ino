@@ -1,15 +1,3 @@
-/*
- * This ESP32 code is created by esp32io.com
- *
- * This ESP32 code is released in the public domain
- *
- * For more detail (instruction and wiring diagram), visit https://esp32io.com/tutorials/esp32-gps
- */
-
-// GPS REFERENCE: http://arduiniana.org/libraries/tinygpsplus/
-
-// USING TTGO-LoRa32_V2 BOARD
-
 #include <TinyGPS++.h>
 #include <TFT_eSPI.h> // Graphics and font library for ST7735 driver chip
 #include <SPI.h>
@@ -92,25 +80,3 @@ void loop() {
     Serial.println(F("No GPS data received: check wiring"));
 }
 
-
-
-
-
-
-
-//      Serial.print(F("- GPS date&time: "));
-//      if (gps.date.isValid() && gps.time.isValid()) {
-//        Serial.print(gps.date.year());
-//        Serial.print(F("-"));
-//        Serial.print(gps.date.month());
-//        Serial.print(F("-"));
-//        Serial.print(gps.date.day());
-//        Serial.print(F(" "));
-//        Serial.print(gps.time.hour());
-//        Serial.print(F(":"));
-//        Serial.print(gps.time.minute());
-//        Serial.print(F(":"));
-//        Serial.println(gps.time.second());
-//      } else {
-//        Serial.println(F("INVALID"));
-//      }
