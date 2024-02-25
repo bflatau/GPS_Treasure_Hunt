@@ -14,7 +14,11 @@ Note: may need to verify code on initial launch
 
 
 ### ARDUINO
+TinyGPS++ Library 
 * http://arduiniana.org/libraries/tinygpsplus/
+
+Write to ESP32 Flash Example
+* https://www.electronics-lab.com/project/using-esp32s-flash-memory-for-data-storage/
 
 
 ### HARDWARE LIST:

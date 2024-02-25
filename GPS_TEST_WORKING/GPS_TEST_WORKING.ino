@@ -6,10 +6,9 @@ TFT_eSPI tft = TFT_eSPI();  // Invoke library, pins defined in User_Setup.h
 TinyGPSPlus gps;  // the TinyGPS++ object
 
 
-
 //SET GLOBAL VARIABLES & DATA
-const double TREASURE_LAT = 48.85826;
-const double TREASURE_LNG = 2.294516;
+const double TREASURE_LAT = 37.46120465557255;
+const double TREASURE_LNG = -122.43577242318591;
 
 const int buttonPin_1 = 0; 
 const int buttonPin_2 = 35; 
@@ -31,10 +30,15 @@ void setup() {
 
   //SET UP SCREEN
   tft.init();
-  tft.setRotation(1);
+  tft.setRotation(0);
   tft.fillScreen(TFT_BLACK);
   tft.setTextSize(1);
   tft.setTextColor(TFT_GREEN, TFT_BLACK);
+
+  // DRAW CLOCK THING (x, y, radius, color)
+
+  tft.fillCircle(64, 64, 61, TFT_BLUE);
+  tft.fillCircle(64, 64, 57, TFT_BLACK);
 
   //SETUP SERIAL FOR GPS
   Serial.begin(9600);
@@ -44,12 +48,6 @@ void setup() {
 
 void loop() {
 
-  
-
-
-
-
-
   if (Serial2.available() > 0) {
     if (gps.encode(Serial2.read())) {
       if (gps.location.isValid()) {
@@ -58,14 +56,14 @@ void loop() {
         button_1_currentState = digitalRead(buttonPin_1);
         button_2_currentState = digitalRead(buttonPin_2);
 
-
         //TREASURE LOCATION
-        double distanceKm =
+        double distanceTo =
           gps.distanceBetween(
             gps.location.lat(),
             gps.location.lng(),
             TREASURE_LAT,
-            TREASURE_LNG) / 1000.0;
+            // TREASURE_LNG) / 1000.0;
+            TREASURE_LNG);
 
         double courseTo =
           gps.courseTo(
@@ -74,58 +72,100 @@ void loop() {
             TREASURE_LAT,
             TREASURE_LNG);
 
+          
+          tft.fillCircle(64, 64, 57, TFT_BLACK); // clear circle
 
-        // HANDLE BUTTON 1
-        if(button_1_lastState == HIGH && button_1_currentState == LOW){
-          tft.fillScreen(TFT_GREEN);
 
-          // DISPLAY LATITUDE ON SCREEN
-          // String gpsLat = String(gps.location.lat());
-          // tft.drawString("Lat:     " + gpsLat, 0, 0, 4);
-
-        //    Serial.print("Distance (km) to Eiffel Tower: ");
-        // Serial.println(distanceKm);
-        // Serial.print("Course to Eiffel Tower: ");
-        // Serial.println(courseTo);
-        // Serial.print("Human directions: ");
-        // Serial.println(gps.cardinal(courseTo));
+          tft.drawLine(57*cos(courseTo), 57*sin(courseTo), 64, 64, TFT_RED);
 
 
 
-        }
-        else if(button_1_lastState == LOW && button_1_currentState == HIGH){
-
-          // DISPLAY LATITUDE ON SCREEN
-          String gpsLat = String(gps.location.lat());
-          tft.drawString("Lat:     " + gpsLat, 0, 0, 4);
-          // DISPLAY LONGITUDE ON SCREEN
-          String gpsLong = String(gps.location.lng());
-          tft.drawString("Long:     " + gpsLong, 0, 30, 4);
-          // DISPLAY SATELLITES ON SCREEN
-          String gpsSats = String(gps.satellites.value());
-          tft.drawString("Sat_Count:     " + gpsSats, 0, 60, 4); 
-
-          if (gps.speed.isValid()) {
-            //DISPLAY ALTITUDE ON SCREEN
-            String gpsSpeed = String(gps.speed.mph());
-            tft.drawString("Speed:     " + gpsSpeed, 0, 90, 4); 
-          } else {
-            tft.drawString("Speed: Invalid", 0, 90, 4);
-          } 
-        }
-
-        // save the the last state
-        button_1_lastState = button_1_currentState;
-
-        //HANDLE BUTTON 2
-        if(button_2_lastState == HIGH && button_2_currentState == LOW)
-          tft.setTextColor(TFT_CYAN, TFT_BLACK);
-
-        else if(button_2_lastState == LOW && button_2_currentState == HIGH)
+          String distanceToDestination = String(distanceTo);
           tft.setTextColor(TFT_GREEN, TFT_BLACK);
+          tft.drawString("Distance:", 0, 130, 4);
+          tft.setTextColor(TFT_WHITE, TFT_BLACK);
+          tft.drawString(distanceToDestination, 0, 160, 4);
 
-        // save the the last state
-        button_2_lastState = button_2_currentState;
+          // String courseToDestination = String(courseTo);
+          // tft.drawString("Course to Treasue:", 0, 60, 4);
+          // tft.drawString(courseToDestination, 0, 90, 4);
+          tft.setTextColor(TFT_GREEN, TFT_BLACK);
+          tft.drawString("Course:", 0, 190, 4);
+          tft.setTextColor(TFT_WHITE, TFT_BLACK);
+          String courseToDestination = String(courseTo);
+          tft.drawString(courseToDestination, 0, 220, 4);
+
+
+        
+
+
+        // // HANDLE BUTTON 1
+        // if(button_1_lastState == HIGH && button_1_currentState == LOW){
+
+        //   tft.fillScreen(TFT_BLACK);
+        //   // DISPLAY LATITUDE ON SCREEN
+        //   String gpsLat = String(gps.location.lat());
+        //   tft.drawString("Lat:     " + gpsLat, 0, 0, 4);
+        //   // DISPLAY LONGITUDE ON SCREEN
+        //   String gpsLong = String(gps.location.lng());
+        //   tft.drawString("Long:     " + gpsLong, 0, 30, 4);
+        //   // DISPLAY SATELLITES ON SCREEN
+        //   String gpsSats = String(gps.satellites.value());
+        //   tft.drawString("Sat_Count:     " + gpsSats, 0, 60, 4); 
+
+        //   if (gps.speed.isValid()) {
+        //     //DISPLAY ALTITUDE ON SCREEN
+        //     String gpsSpeed = String(gps.speed.mph());
+        //     tft.drawString("Speed:     " + gpsSpeed, 0, 90, 4); 
+        //   } else {
+        //     tft.drawString("Speed: Invalid", 0, 90, 4);
+        //   } 
+
+        //   // DISPLAY LATITUDE ON SCREEN
+        //   // String gpsLat = String(gps.location.lat());
+        //   // tft.drawString("Lat:     " + gpsLat, 0, 0, 4);
+
+        // //    Serial.print("Distance (km) to Eiffel Tower: ");
+        // // Serial.println(distanceKm);
+        // // Serial.print("Course to Eiffel Tower: ");
+        // // Serial.println(courseTo);
+        // // Serial.print("Human directions: ");
+        // // Serial.println(gps.cardinal(courseTo));
+
+
+
+        // }
+        // else if(button_1_lastState == LOW && button_1_currentState == HIGH){
+        //   tft.fillScreen(TFT_BLACK); //clear screen
+        //   tft.setTextColor(TFT_GREEN, TFT_BLACK); // set initial text color
+
+        //   String distanceToDestination = String(distanceKm);
+        //   tft.drawString("Distance to Treasure:", 0, 0, 4);
+        //   tft.setTextColor(TFT_WHITE, TFT_BLACK);
+        //   tft.drawString(distanceToDestination, 0, 30, 4);
+
+        //   // String courseToDestination = String(courseTo);
+        //   // tft.drawString("Course to Treasue:", 0, 60, 4);
+        //   // tft.drawString(courseToDestination, 0, 90, 4);
+        //   tft.setTextColor(TFT_GREEN, TFT_BLACK);
+        //   tft.drawString("Course to Treasue:", 0, 60, 4);
+        //   tft.setTextColor(TFT_WHITE, TFT_BLACK);
+        //   tft.drawString(gps.cardinal(courseTo), 0, 90, 4);
+
+        // }
+
+        // // save the the last state
+        // button_1_lastState = button_1_currentState;
+
+        // //HANDLE BUTTON 2
+        // if(button_2_lastState == HIGH && button_2_currentState == LOW)
+        //   tft.setTextColor(TFT_CYAN, TFT_BLACK);
+
+        // else if(button_2_lastState == LOW && button_2_currentState == HIGH)
+        //   tft.setTextColor(TFT_GREEN, TFT_BLACK);
+
+        // // save the the last state
+        // button_2_lastState = button_2_currentState;
 
 
 
@@ -145,9 +185,9 @@ void loop() {
 // TESTINNNNNGG
 
         
-        Serial.print("Distance (km) to Eiffel Tower: ");
-        Serial.println(distanceKm);
-        Serial.print("Course to Eiffel Tower: ");
+        Serial.print("Distance to Treasure: ");
+        Serial.println(distanceTo);
+        Serial.print("Course to Treasure: ");
         Serial.println(courseTo);
         Serial.print("Human directions: ");
         Serial.println(gps.cardinal(courseTo));
@@ -184,7 +224,7 @@ void loop() {
     }
   }else{
     Serial.println(F("NOT WORKING"));
-    tft.drawString("NOT WORKING", 0, 0, 4);
+    // tft.drawString("NOT WORKING", 0, 0, 4);
   }
 
   if (millis() > 5000 && gps.charsProcessed() < 10)
