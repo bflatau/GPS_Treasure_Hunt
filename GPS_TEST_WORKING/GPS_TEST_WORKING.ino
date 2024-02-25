@@ -20,7 +20,13 @@ int button_1_lastState = LOW;
 int button_1_currentState;  
 
 int button_2_lastState = LOW; 
-int button_2_currentState;  
+int button_2_currentState; 
+
+float sx = 0, sy = 1, mx = 1, my = 0, hx = -1, hy = 0;    // Saved H, M, S x & y multipliers
+float sdeg=0, mdeg=0, hdeg=0;
+uint16_t osx=64, osy=64, omx=64, omy=64, ohx=64, ohy=64;  // Saved H, M, S x & y coords
+uint16_t x0=0, x1=0, yy0=0, yy1=0;
+uint32_t targetTime = 0;                    // for next 1 second timeout
 
 
 void setup() {
@@ -76,8 +82,24 @@ void loop() {
           tft.fillCircle(64, 64, 57, TFT_BLACK); // clear circle
 
 
-          tft.drawLine(57*cos(courseTo), 57*sin(courseTo), 64, 64, TFT_RED);
+          // hx = cos((hdeg-90)*0.0174532925);    
+          // hy = sin((hdeg-90)*0.0174532925);
 
+          // hx = cos((90)*57);    
+          // hy = sin((90)*57);
+
+          // tft.drawLine(64, 64, hx, hy,TFT_RED);
+
+           for(int i = 0; i<360; i+= 90) {
+            sx = cos((i-90)*0.0174532925);
+            sy = sin((i-90)*0.0174532925);
+            x0 = sx*57+64;
+            yy0 = sy*57+64;
+            x1 = sx*50+64;
+            yy1 = sy*50+64;
+
+          tft.drawLine(x0, yy0, x1, yy1, TFT_BLUE);
+          }
 
 
           String distanceToDestination = String(distanceTo);
