@@ -43,8 +43,20 @@ void setup() {
 
   // DRAW CLOCK THING (x, y, radius, color)
 
+ 
   tft.fillCircle(64, 64, 61, TFT_BLUE);
   tft.fillCircle(64, 64, 57, TFT_BLACK);
+
+  for(int i = 0; i<360; i+= 90) {
+          sx = cos((i-90)*0.0174532925);
+          sy = sin((i-90)*0.0174532925);
+          x0 = sx*57+64;
+          yy0 = sy*57+64;
+          x1 = sx*50+64;
+          yy1 = sy*50+64;
+
+          tft.drawLine(x0, yy0, x1, yy1, TFT_BLUE);
+  }
 
   //SETUP SERIAL FOR GPS
   Serial.begin(9600);
@@ -78,20 +90,20 @@ void loop() {
             TREASURE_LAT,
             TREASURE_LNG);
 
-        for(int i = 0; i<360; i+= 90) {
-          sx = cos((i-90)*0.0174532925);
-          sy = sin((i-90)*0.0174532925);
-          x0 = sx*57+64;
-          yy0 = sy*57+64;
-          x1 = sx*50+64;
-          yy1 = sy*50+64;
+        //NEED TO REDRAW EACH TIME TO CLEAR OLD LINES?
 
-          tft.drawLine(x0, yy0, x1, yy1, TFT_BLUE);
-        }
-
+          tft.fillCircle(64, 64, 45, TFT_BLACK);
 
           //DRAW REDLINE
-          tft.drawLine(64, 64, cos((courseTo - 90)*0.0174532925)*57+64, sin((courseTo - 90)*0.0174532925)*57+64 , TFT_RED);
+          //45 is radius of imaginary circle, 64 is X/Y location in space
+          tft.drawLine(64, 64, cos((courseTo - 90)*0.0174532925)*45+64, sin((courseTo - 90)*0.0174532925)*45+64 , TFT_RED);
+
+          
+
+          // static const char* directions[] = {"N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"};
+          // int direction = (int)((course + 11.25f) / 22.5f);
+          // return directions[direction % 16];
+
 
           String distanceToDestination = String(distanceTo);
           tft.setTextColor(TFT_GREEN, TFT_BLACK);
