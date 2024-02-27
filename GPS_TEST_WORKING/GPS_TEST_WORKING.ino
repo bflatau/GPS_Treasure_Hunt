@@ -1,9 +1,12 @@
 #include <TinyGPS++.h>
 #include <TFT_eSPI.h> // Graphics and font library for ST7735 driver chip
 #include <SPI.h>
-TFT_eSPI tft = TFT_eSPI();  // Invoke library, pins defined in User_Setup.h
+#include <QMC5883LCompass.h>
 
+TFT_eSPI tft = TFT_eSPI();  // Invoke library, pins defined in User_Setup.h
 TinyGPSPlus gps;  // the TinyGPS++ object
+
+QMC5883LCompass compass;
 
 
 //SET GLOBAL VARIABLES & DATA
@@ -33,6 +36,14 @@ void setup() {
   //SETUP BUTTONS
   pinMode(buttonPin_1, INPUT_PULLUP);
   pinMode(buttonPin_2, INPUT_PULLUP);
+
+  // START COMPASS
+  compass.init();
+
+  //  +12° 58'
+
+  compass.setMagneticDeclination(12,58);
+
 
   //SET UP SCREEN
   tft.init();
@@ -73,6 +84,42 @@ void loop() {
         //BUTTON STUFF
         button_1_currentState = digitalRead(buttonPin_1);
         button_2_currentState = digitalRead(buttonPin_2);
+
+        //COMPASS STUFF
+        compass.read();
+  
+        byte a = compass.getAzimuth();
+
+        char myArray[3];
+        compass.getDirection(myArray, a);
+
+        
+        
+        Serial.print(myArray[0]);
+        Serial.print(myArray[1]);
+        Serial.print(myArray[2]);
+        Serial.println();
+
+        Serial.print("A: ");
+        Serial.print(a);
+        Serial.println();
+
+
+        int x, y, test;
+
+        x = compass.getX();
+        y = compass.getY();
+        
+        Serial.print("X: ");
+        Serial.print(x);
+        Serial.print(" Y: ");
+        Serial.print(y);
+
+        // 0-192, 89-255  ==> 358
+        test = compass.getBearing(a);
+        Serial.print("Bearing: ");
+        Serial.print(test);
+
 
         //TREASURE LOCATION
         double distanceTo =
@@ -194,61 +241,50 @@ void loop() {
 
 
 
-        // LOG LATITUDE
-        Serial.print(F("- latitude: "));
-        Serial.println(gps.location.lat());
+      //   // LOG LATITUDE
+      //   Serial.print(F("- latitude: "));
+      //   Serial.println(gps.location.lat());
 
-        //LOG LONGITUDE
-        Serial.print(F("- longitude: "));
-        Serial.println(gps.location.lng());
+      //   //LOG LONGITUDE
+      //   Serial.print(F("- longitude: "));
+      //   Serial.println(gps.location.lng());
         
-        // LOG NUMBER OF SATELLITES
-        Serial.print(F("- SATELLITES: "));
-        Serial.print(gps.satellites.value()); 
+      //   // LOG NUMBER OF SATELLITES
+      //   Serial.print(F("- SATELLITES: "));
+      //   Serial.print(gps.satellites.value()); 
         
 
-// TESTINNNNNGG
+      //   //LOG ALTITUDE
+      //   if (gps.altitude.isValid()){
+      //     // LOG ALTITUDE
+      //     Serial.print(F("- altitude: "));
+      //     Serial.println(gps.altitude.feet());
+      //     Serial.println(F(" feet"));
+      //   }else{
+      //     Serial.println(F("INVALID"));
+      //   }
 
-        
-        Serial.print("Distance to Treasure: ");
-        Serial.println(distanceTo);
-        Serial.print("Course to Treasure: ");
-        Serial.println(courseTo);
-        Serial.print("Human directions: ");
-        Serial.println(gps.cardinal(courseTo));
+      // } else {
+      //   Serial.println(F("- location: INVALID"));
+      // }
 
-
-
-// END TESTINGGGGG
-
-
-        //LOG ALTITUDE
-        if (gps.altitude.isValid()){
-          // LOG ALTITUDE
-          Serial.print(F("- altitude: "));
-          Serial.println(gps.altitude.feet());
-          Serial.println(F(" feet"));
-        }else{
-          Serial.println(F("INVALID"));
-        }
-
-      } else {
-        Serial.println(F("- location: INVALID"));
+      // // LOG SPEED
+      // Serial.print(F("- speed: "));
+      // if (gps.speed.isValid()) {
+      //   Serial.print(gps.speed.mph());
+      //   Serial.println(F(" mph"));
+      // } else {
+      //   Serial.println(F("INVALID"));
       }
 
-      // LOG SPEED
-      Serial.print(F("- speed: "));
-      if (gps.speed.isValid()) {
-        Serial.print(gps.speed.mph());
-        Serial.println(F(" mph"));
-      } else {
-        Serial.println(F("INVALID"));
-      }
+
+
+
 
       Serial.println();
     }
   }else{
-    Serial.println(F("NOT WORKING"));
+    // Serial.println(F("NOT WORKING"));
     // tft.drawString("NOT WORKING", 0, 0, 4);
   }
 
@@ -256,3 +292,35 @@ void loop() {
     Serial.println(F("No GPS data received: check wiring"));
 }
 
+
+
+
+// */
+// #include <QMC5883LCompass.h>
+
+// QMC5883LCompass compass;
+
+// void setup() {
+//   Serial.begin(9600);
+//   compass.init();
+// }
+
+// void loop() {
+//   compass.read();
+  
+//   byte a = compass.getAzimuth();
+
+//   char myArray[3];
+//   compass.getDirection(myArray, a);
+  
+//   Serial.print(myArray[0]);
+//   Serial.print(myArray[1]);
+//   Serial.print(myArray[2]);
+//   Serial.println();
+
+//   Serial.print("A: ");
+//   Serial.print(a);
+//   Serial.println();
+  
+//   delay(250);
+// }

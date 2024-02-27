@@ -20,6 +20,12 @@ TinyGPS++ Library
 Write to ESP32 Flash Example
 * https://www.electronics-lab.com/project/using-esp32s-flash-memory-for-data-storage/
 
+Digital Compass Example
+* https://www.esp32learning.com/code/an-esp32-and-hmc5883l-sensor-example.php
+* https://learn.adafruit.com/adafruit-hmc5883l-breakout-triple-axis-magnetometer-compass-sensor/wiring-and-test
+
+Fake compass example:
+* https://surtrtech.com/2018/02/01/interfacing-hmc8553l-qmc5883-digital-compass-with-arduino/
 
 ### HARDWARE LIST:
 
@@ -34,7 +40,16 @@ Other charger:
 
 https://www.amazon.com/dp/B07PKND8KG?psc=1&smid=A30QSGOJR8LMXA&ref_=chk_typ_imgToDp
 
-Digital Compass: https://www.amazon.com/HiLetgo-GY-271-QMC5883L-Compass-Magnetometer/dp/B008V9S64E/ref=sr_1_3?camp=1789&creative=9325&dib=eyJ2IjoiMSJ9.68MsrC0Dm1oV5VZUJjA5A2_rs_2lmBx9tgi_LwrUOBoHLGIeNIYaAea075OhkfiWyExKUk3dF35Z4-NlDn-iT_bx-EQsUN3dsa8mA2UsQ46RACeyD-QagQgqmfuL8HiWtN2xspvT6NGlYbtrkO_W6NJGHhWKpvOZqSS37g6iYEWaZL9uSR5RelPazpBdsMplar8_65_Ogz1kW5Tmb3w9KfLqnhEY1oWspxtAdrczI4w.z0aRx7MrunO9VWPPKUk5weAyLGVGcgLD8dhHY_0f-Pw&dib_tag=se&keywords=HMC5883L%22&linkCode=ur2&linkId=cac24da38498a0be29dcff978e974b54&qid=1708916150&sr=8-3
+Digital Compass: 
+
+QMC: 
+
+https://www.amazon.com/HiLetgo-GY-271-QMC5883L-Compass-Magnetometer/dp/B008V9S64E/ref=sr_1_3?camp=1789&creative=9325&dib=eyJ2IjoiMSJ9.68MsrC0Dm1oV5VZUJjA5A2_rs_2lmBx9tgi_LwrUOBoHLGIeNIYaAea075OhkfiWyExKUk3dF35Z4-NlDn-iT_bx-EQsUN3dsa8mA2UsQ46RACeyD-QagQgqmfuL8HiWtN2xspvT6NGlYbtrkO_W6NJGHhWKpvOZqSS37g6iYEWaZL9uSR5RelPazpBdsMplar8_65_Ogz1kW5Tmb3w9KfLqnhEY1oWspxtAdrczI4w.z0aRx7MrunO9VWPPKUk5weAyLGVGcgLD8dhHY_0f-Pw&dib_tag=se&keywords=HMC5883L%22&linkCode=ur2&linkId=cac24da38498a0be29dcff978e974b54&qid=1708916150&sr=8-3
+
+
+HMC:
+
+https://www.amazon.com/dp/B0855TZV1J?psc=1&smid=A1RV7R81U3FOKU&ref_=chk_typ_imgToDp
 
 
 Battery??: https://www.amazon.com/EEMB-Battery-Rechargeable-Connector-Certified/dp/B09DPPX5FV/ref=pd_ci_mcx_pspc_dp_d_2_t_2?pd_rd_w=9twMP&content-id=amzn1.sym.568f3b6b-5aad-4bfd-98ee-d827f03151e4&pf_rd_p=568f3b6b-5aad-4bfd-98ee-d827f03151e4&pf_rd_r=WQ6N6G52PN2X6VQ5CVJ1&pd_rd_wg=wArjp&pd_rd_r=0773d1a2-3a21-4d01-a716-fff474303b23&pd_rd_i=B09DPPX5FV

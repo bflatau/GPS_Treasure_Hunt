@@ -222,6 +222,8 @@
                 "/home/ben/.arduino15/packages/esp32/hardware/esp32/2.0.11/libraries/SPI/src",
                 "/home/ben/.arduino15/packages/esp32/hardware/esp32/2.0.11/libraries/FS/src",
                 "/home/ben/.arduino15/packages/esp32/hardware/esp32/2.0.11/libraries/SPIFFS/src",
+                "/home/ben/Arduino/libraries/QMC5883LCompass-master/src",
+                "/home/ben/.arduino15/packages/esp32/hardware/esp32/2.0.11/libraries/Wire/src",
                 "/home/ben/.arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/include/c++/8.4.0",
                 "/home/ben/.arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/include/c++/8.4.0/xtensa-esp32-elf",
                 "/home/ben/.arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/include/c++/8.4.0/backward",
