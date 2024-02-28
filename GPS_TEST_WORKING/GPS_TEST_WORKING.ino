@@ -44,6 +44,26 @@ void setup() {
 
   compass.setMagneticDeclination(12,58);
 
+  // compass.setCalibrationOffsets(-21.00, -169.00, 740.00);
+  // compass.setCalibrationScales(0.73, 1.29, 1.16);
+
+//   23:11:22.051 -> compass.setCalibrationOffsets(303.00, 46.00, 593.00);
+// 23:11:22.051 -> compass.setCalibrationScales(0.93, 0.82, 1.41);
+
+  compass.setCalibrationOffsets(306.00, -7.00, 568.00);
+  compass.setCalibrationScales(0.98, 0.79, 1.40);
+
+// 23:13:53.934 -> compass.setCalibrationOffsets(275.00, -63.00, 535.00);
+// 23:13:54.000 -> compass.setCalibrationScales(0.86, 0.80, 1.71);
+
+// 23:15:15.447 -> compass.setCalibrationOffsets(340.00, -7.00, 627.00);
+// 23:15:15.447 -> compass.setCalibrationScales(0.93, 0.87, 1.30);
+
+
+
+
+
+
 
   //SET UP SCREEN
   tft.init();
@@ -90,35 +110,40 @@ void loop() {
   
         byte a = compass.getAzimuth();
 
-        char myArray[3];
-        compass.getDirection(myArray, a);
+        // char myArray[3];
+        // compass.getDirection(myArray, a);
 
         
         
-        Serial.print(myArray[0]);
-        Serial.print(myArray[1]);
-        Serial.print(myArray[2]);
-        Serial.println();
+        // Serial.print(myArray[0]);
+        // Serial.print(myArray[1]);
+        // Serial.print(myArray[2]);
+        // Serial.println();
 
-        Serial.print("A: ");
-        Serial.print(a);
-        Serial.println();
+        // Serial.print("A: ");
+        // Serial.print(a);
+        // Serial.println();
 
 
-        int x, y, test;
+        int x, y, manual_azimoth;
 
         x = compass.getX();
         y = compass.getY();
+
+        manual_azimoth = atan2(y, x) * 180 / PI;
+
+        Serial.print(F("- BENzimoth: "));
+        Serial.println(manual_azimoth + 180);
         
-        Serial.print("X: ");
-        Serial.print(x);
-        Serial.print(" Y: ");
-        Serial.print(y);
+        // Serial.print("X: ");
+        // Serial.print(x);
+        // Serial.print(" Y: ");
+        // Serial.print(y);
 
         // 0-192, 89-255  ==> 358
-        test = compass.getBearing(a);
-        Serial.print("Bearing: ");
-        Serial.print(test);
+        // test = compass.getBearing(a);
+        // Serial.print("Bearing: ");
+        // Serial.print(test);
 
 
         //TREASURE LOCATION
@@ -142,8 +167,12 @@ void loop() {
           tft.fillCircle(64, 64, 45, TFT_BLACK);
 
           //DRAW REDLINE
-          //45 is radius of imaginary circle, 64 is X/Y location in space
-          tft.drawLine(64, 64, cos((courseTo - 90)*0.0174532925)*45+64, sin((courseTo - 90)*0.0174532925)*45+64 , TFT_RED);
+          //45 is radius of imaginary circle, 64 is X/Y location in space (READ GPS)
+          // tft.drawLine(64, 64, cos((courseTo - 90)*0.0174532925)*45+64, sin((courseTo - 90)*0.0174532925)*45+64 , TFT_RED);
+          
+
+          //TESTING
+          tft.drawLine(64, 64, cos((manual_azimoth - 90)*0.0174532925)*45+64, sin((manual_azimoth - 90)*0.0174532925)*45+64 , TFT_RED);
 
           
 

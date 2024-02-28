@@ -42,6 +42,8 @@ https://www.amazon.com/dp/B07PKND8KG?psc=1&smid=A30QSGOJR8LMXA&ref_=chk_typ_imgT
 
 Digital Compass: 
 
+https://www.adafruit.com/product/4413
+
 QMC: 
 
 https://www.amazon.com/HiLetgo-GY-271-QMC5883L-Compass-Magnetometer/dp/B008V9S64E/ref=sr_1_3?camp=1789&creative=9325&dib=eyJ2IjoiMSJ9.68MsrC0Dm1oV5VZUJjA5A2_rs_2lmBx9tgi_LwrUOBoHLGIeNIYaAea075OhkfiWyExKUk3dF35Z4-NlDn-iT_bx-EQsUN3dsa8mA2UsQ46RACeyD-QagQgqmfuL8HiWtN2xspvT6NGlYbtrkO_W6NJGHhWKpvOZqSS37g6iYEWaZL9uSR5RelPazpBdsMplar8_65_Ogz1kW5Tmb3w9KfLqnhEY1oWspxtAdrczI4w.z0aRx7MrunO9VWPPKUk5weAyLGVGcgLD8dhHY_0f-Pw&dib_tag=se&keywords=HMC5883L%22&linkCode=ur2&linkId=cac24da38498a0be29dcff978e974b54&qid=1708916150&sr=8-3
