@@ -50,11 +50,11 @@ void setup() {
 //   23:11:22.051 -> compass.setCalibrationOffsets(303.00, 46.00, 593.00);
 // 23:11:22.051 -> compass.setCalibrationScales(0.93, 0.82, 1.41);
 
-  compass.setCalibrationOffsets(306.00, -7.00, 568.00);
-  compass.setCalibrationScales(0.98, 0.79, 1.40);
+  compass.setCalibrationOffsets(306.00, -7.00, 568.00); //GOOD?
+  compass.setCalibrationScales(0.98, 0.79, 1.40); // GOOD?
 
-// 23:13:53.934 -> compass.setCalibrationOffsets(275.00, -63.00, 535.00);
-// 23:13:54.000 -> compass.setCalibrationScales(0.86, 0.80, 1.71);
+// compass.setCalibrationOffsets(275.00, -63.00, 535.00);
+// compass.setCalibrationScales(0.86, 0.80, 1.71);
 
 // 23:15:15.447 -> compass.setCalibrationOffsets(340.00, -7.00, 627.00);
 // 23:15:15.447 -> compass.setCalibrationScales(0.93, 0.87, 1.30);
@@ -125,15 +125,17 @@ void loop() {
         // Serial.println();
 
 
-        int x, y, manual_azimoth;
+        int x, y, manual_azimoth, benzimoth, delta_calc;
 
         x = compass.getX();
         y = compass.getY();
 
         manual_azimoth = atan2(y, x) * 180 / PI;
 
+        benzimoth = manual_azimoth + 180;
+        //NORTH IS ~20
         Serial.print(F("- BENzimoth: "));
-        Serial.println(manual_azimoth + 180);
+        Serial.println(benzimoth);
         
         // Serial.print("X: ");
         // Serial.print(x);
@@ -169,23 +171,52 @@ void loop() {
           //DRAW REDLINE
           //45 is radius of imaginary circle, 64 is X/Y location in space (READ GPS)
           // tft.drawLine(64, 64, cos((courseTo - 90)*0.0174532925)*45+64, sin((courseTo - 90)*0.0174532925)*45+64 , TFT_RED);
+
+          //courseTo = angle related to north
+          // 20 arbitrary north
+          // benzimoth reading from magnetometer (20 is north?)
           
+          /*//
+
+          165 - (20 - 20) => true north => 165
+          165 - 0 => 165
+
+          165 - (40 - 20) => true north => 185
+
+          165 - 20 = > 145
+     
+          /*/
+        
+
+          delta_calc = courseTo + (benzimoth - 20);
 
           //TESTING
-          tft.drawLine(64, 64, cos((manual_azimoth - 90)*0.0174532925)*45+64, sin((manual_azimoth - 90)*0.0174532925)*45+64 , TFT_RED);
+          // tft.drawLine(64, 64, cos((manual_azimoth - 90)*0.0174532925)*45+64, sin((manual_azimoth - 90)*0.0174532925)*45+64 , TFT_RED);
+          tft.drawLine(64, 64, cos((delta_calc -90)*0.0174532925)*44+64, sin((delta_calc -90)*0.0174532925)*44+64 , TFT_RED);
 
-          
 
           // static const char* directions[] = {"N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"};
           // int direction = (int)((course + 11.25f) / 22.5f);
           // return directions[direction % 16];
 
 
-          String distanceToDestination = String(distanceTo);
-          tft.setTextColor(TFT_GREEN, TFT_BLACK);
-          tft.drawString("Distance:", 0, 130, 4);
+          // String distanceToDestination = String(distanceTo);
+          // tft.setTextColor(TFT_GREEN, TFT_BLACK);
+          // tft.drawString("Distance:", 0, 130, 4);
+          // tft.setTextColor(TFT_WHITE, TFT_BLACK);
+          // tft.drawString(distanceToDestination, 0, 160, 4);
+
+
+          // String benZimothAngle = String(abs(courseTo - benzimoth) -90);
+          String benZimothAngle = String(benzimoth);
+          // tft.setTextColor(TFT_GREEN, TFT_BLACK);
+          // tft.drawString("Delta:", 0, 130, 4);
           tft.setTextColor(TFT_WHITE, TFT_BLACK);
-          tft.drawString(distanceToDestination, 0, 160, 4);
+          tft.drawString(benZimothAngle, 0, 130, 4);
+
+          String deltaAngle = String(delta_calc);
+          tft.setTextColor(TFT_GREEN, TFT_BLACK);
+          tft.drawString(deltaAngle, 0, 160, 4);
 
           // String courseToDestination = String(courseTo);
           // tft.drawString("Course to Treasue:", 0, 60, 4);
