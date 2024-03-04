@@ -63,3 +63,8 @@ https://www.sparkfun.com/products/retired/10121
 ### MATH HELP
 
 * https://math.libretexts.org/Bookshelves/Precalculus/Book%3A_Precalculus__An_Investigation_of_Functions_(Lippman_and_Rasmussen)/05%3A_Trigonometric_Functions_of_Angles/5.03%3A_Points_on_Circles_Using_Sine_and_Cosine
+
+
+##PYTHON STUFF:
+
+https://circuitpython.org/board/lilygo_t_display_rp2040/

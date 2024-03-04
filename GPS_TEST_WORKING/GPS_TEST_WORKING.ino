@@ -200,23 +200,23 @@ void loop() {
           // return directions[direction % 16];
 
 
-          // String distanceToDestination = String(distanceTo);
-          // tft.setTextColor(TFT_GREEN, TFT_BLACK);
-          // tft.drawString("Distance:", 0, 130, 4);
-          // tft.setTextColor(TFT_WHITE, TFT_BLACK);
-          // tft.drawString(distanceToDestination, 0, 160, 4);
+          String distanceToDestination = String(distanceTo);
+          tft.setTextColor(TFT_GREEN, TFT_BLACK);
+          tft.drawString("Distance:", 0, 130, 4);
+          tft.setTextColor(TFT_WHITE, TFT_BLACK);
+          tft.drawString(distanceToDestination, 0, 160, 4);
 
 
           // String benZimothAngle = String(abs(courseTo - benzimoth) -90);
-          String benZimothAngle = String(benzimoth);
-          // tft.setTextColor(TFT_GREEN, TFT_BLACK);
-          // tft.drawString("Delta:", 0, 130, 4);
-          tft.setTextColor(TFT_WHITE, TFT_BLACK);
-          tft.drawString(benZimothAngle, 0, 130, 4);
+          // String benZimothAngle = String(benzimoth);
+          // // tft.setTextColor(TFT_GREEN, TFT_BLACK);
+          // // tft.drawString("Delta:", 0, 130, 4);
+          // tft.setTextColor(TFT_WHITE, TFT_BLACK);
+          // tft.drawString(benZimothAngle, 0, 130, 4);
 
-          String deltaAngle = String(delta_calc);
-          tft.setTextColor(TFT_GREEN, TFT_BLACK);
-          tft.drawString(deltaAngle, 0, 160, 4);
+          // String deltaAngle = String(delta_calc);
+          // tft.setTextColor(TFT_GREEN, TFT_BLACK);
+          // tft.drawString(deltaAngle, 0, 160, 4);
 
           // String courseToDestination = String(courseTo);
           // tft.drawString("Course to Treasue:", 0, 60, 4);
